@@ -14,12 +14,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            buildConfigField('String', 'API_BASE_URL', '"api.openweathermap.org/data/2.5/"')
+            buildConfigField('String', 'API_BASE_URL', '"http://api.openweathermap.org/data/2.5/"')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled false
-            buildConfigField('String', 'API_BASE_URL', '"api.openweathermap.org/data/2.5/"')
+            buildConfigField('String', 'API_BASE_URL', '"http://api.openweathermap.org/data/2.5/"')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

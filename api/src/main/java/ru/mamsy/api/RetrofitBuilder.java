@@ -2,8 +2,6 @@ package ru.mamsy.api;
 
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wiintech.android.utils.android.ApplicationInfo;
-import com.wiintech.android.utils.android.DeviceInfo;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -34,9 +32,9 @@ public class RetrofitBuilder {
     /**
      * Создает клиент ретрофит
      */
-    public Retrofit build(ApplicationInfo applicationInfo, DeviceInfo deviceInfo) {
+    public Retrofit build() {
 
-        OkHttpClient client = HttpClientBuilder.build(applicationInfo, deviceInfo);
+        OkHttpClient client = HttpClientBuilder.build();
 
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .setLenient();

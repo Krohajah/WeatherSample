@@ -12,6 +12,12 @@ public class City {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("code")
+    private int code;
+
     @SerializedName("weather")
     private List<Weather> weathers;
 
@@ -51,5 +57,21 @@ public class City {
 
     public void setWind(Wind wind) {
         this.wind = wind;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }
