@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "ru.mamsy.weathersample"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField('String', 'API_BASE_URL', '"api.openweathermap.org/data/2.5/"')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            buildConfigField('String', 'API_BASE_URL', '"api.openweathermap.org/data/2.5/"')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "WeatherSample${variant.versionName}.apk"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // Local jars
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Utils
+    implementation project(path: ':utils')
+    //Logger
+    implementation project(':logger')
+    // Android support
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // Android architecture components
+    //  Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.archLibraryVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.archLibraryVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.archLibraryVersion"
+    //  LiveData
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLibraryVersion"
+    //  Lifecycles
+    implementation "android.arch.lifecycle:common-java8:$rootProject.archLibraryVersion"
+    // Dagger
+    implementation "com.google.dagger:dagger:2.11"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    //RxJava & RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    // JUnit
+    testImplementation "junit:junit:$rootProject.jUnitVersion"
+    // Espresso
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(path: ':api')
+}
