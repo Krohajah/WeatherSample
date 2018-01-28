@@ -1,7 +1,5 @@
 package ru.mamsy.weathersample.data.api;
 
-import java.util.List;
-
 /**
  * Обертка для ошибок АПИ
  *
@@ -9,31 +7,23 @@ import java.util.List;
  */
 public class ApiError {
 
-    private int errorCode;
-    private String errorText;
-    private List<String> errorDetails;
+    private String cod;
+    private String message;
 
-    public int getErrorCode() {
-        return errorCode;
+
+    public String getCod() {
+        return cod;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
-    public String getErrorText() {
-        return errorText;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorText(String errorText) {
-        this.errorText = errorText;
-    }
-
-    public List<String> getErrorDetails() {
-        return errorDetails;
-    }
-
-    public void setErrorDetails(List<String> errorDetails) {
-        this.errorDetails = errorDetails;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

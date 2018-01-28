@@ -1,7 +1,7 @@
 package ru.mamsy.weathersample.data.api;
 
 import io.reactivex.Observable;
-import ru.mamsy.weathersample.data.api.model.CityWeatherModel;
+import ru.mamsy.weathersample.data.api.model.WeatherDataModel;
 
 /**
  * Класс взаимодействия с АПИ.
@@ -16,7 +16,7 @@ public interface ApiWorker {
      * @param query Название города, код страны.
      * @return прогноз на 5 дней.
      */
-    Observable<Response<CityWeatherModel>> getForecast(
+    Observable<Response<WeatherDataModel>> getForecast(
             String query
     );
 }

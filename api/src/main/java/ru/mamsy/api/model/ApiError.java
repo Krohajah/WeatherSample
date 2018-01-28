@@ -1,8 +1,5 @@
 package ru.mamsy.api.model;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Обработчик ошибок API.
  *
@@ -10,28 +7,22 @@ import java.util.Map;
  */
 public class ApiError {
 
-    /**
-     * Код результата
-     */
-    private String result;
-    /**
-     * Сообщения для пользователя.
-     */
-    private List<String> messages;
-    /**
-     * Список общих ошибок
-     */
-    private List<String> errors;
-    /**
-     * Список ошибок параметров
-     */
-    private Map<String, String> fieldErrors;
+    private String cod;
+    private String message;
 
-    public String getResult() {
-        return result;
+    public String getCod() {
+        return cod;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setCod(String cod) {
+        this.cod = cod;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -11,7 +11,6 @@ import ru.mamsy.weathersample.data.api.ApiError;
  */
 public class ApiErrorMapper extends BaseDataMapper<ApiError, ru.mamsy.api.model.ApiError> {
 
-
     @Override
     protected ru.mamsy.api.model.ApiError fromModelImpl(ApiError model) {
         return null;
@@ -19,6 +18,9 @@ public class ApiErrorMapper extends BaseDataMapper<ApiError, ru.mamsy.api.model.
 
     @Override
     protected ApiError toModelImpl(ru.mamsy.api.model.ApiError entity) {
-        return null;
+        ApiError apiError = new ApiError();
+        apiError.setCod(entity.getCod());
+        apiError.setMessage(entity.getMessage());
+        return apiError;
     }
 }

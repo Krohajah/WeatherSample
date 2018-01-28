@@ -15,9 +15,11 @@ class HttpClientBuilder {
     private static final long TIMEOUT = 60;
 
     public static OkHttpClient build() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder()
                 .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(new HttpLoggingInterceptor())
+                .addInterceptor(interceptor)
                 .addInterceptor(new ApiKeyInterceptor())
                 .readTimeout(TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(TIMEOUT, TimeUnit.SECONDS)

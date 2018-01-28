@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import ru.mamsy.api.model.City;
+import ru.mamsy.api.model.WeatherData;
 
 /**
  * API interface.
@@ -21,7 +21,7 @@ public interface Api {
      * @return      прогноз на 5 дней.
      */
     @GET("forecast?units=metric&lang=ru")
-    Observable<Response<City>> getForecast(
+    Observable<Response<WeatherData>> getForecast(
             @NonNull @Query("q") String query
     );
 }

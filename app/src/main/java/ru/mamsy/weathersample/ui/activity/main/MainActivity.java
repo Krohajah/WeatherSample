@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,7 @@ import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.weathersample.R;
 import ru.mamsy.weathersample.data.api.ApiWorker;
 import ru.mamsy.weathersample.data.api.ResponseChecker;
+import ru.mamsy.weathersample.data.api.model.ForecastsModel;
 import ru.mamsy.weathersample.data.api.result.InteractorResult;
 import ru.mamsy.weathersample.data.api.result.ResultStatus;
 import ru.mamsy.weathersample.mvp.BaseMVPActivity;
@@ -49,11 +51,16 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
         setContentView(R.layout.activity_main);
         toolbarDelegate.init();
         toolbarDelegate.setTitle(getString(R.string.main_activity_title));
+        Button button = findViewById(R.id.button);
 
-        apiWorker
-                .getForecast("London, uk")
+        button.setOnClickListener(view -> apiWorker
+                .getForecast("Lodfgdndon, uk")
                 .flatMap(ResponseChecker::checkResponse)
-                .doOnNext(cityWeatherModel -> logger.info(cityWeatherModel.getName()))
+                .doOnNext(cityWeatherModel -> {
+                    for (ForecastsModel forecastsModel : cityWeatherModel.getForecastsModelList()) {
+                        logger.info(forecastsModel.getForecastDate());
+                    }
+                })
                 .map(r -> new Result())
                 .onErrorReturn(throwable -> new Result(ResultStatus.CONNECTION_ERROR))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,7 +70,8 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
                         logger.info("ok");
                     }
                 }, throwable ->
-                        RxJavaPlugins.getErrorHandler().accept(throwable));
+                        RxJavaPlugins.getErrorHandler().accept(throwable)));
+
     }
 
     @Override
