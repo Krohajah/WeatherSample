@@ -54,7 +54,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
         Button button = findViewById(R.id.button);
 
         button.setOnClickListener(view -> apiWorker
-                .getForecast("Lodfgdndon, uk")
+                .getForecast("London, uk")
                 .flatMap(ResponseChecker::checkResponse)
                 .doOnNext(cityWeatherModel -> {
                     for (ForecastsModel forecastsModel : cityWeatherModel.getForecastsModelList()) {
