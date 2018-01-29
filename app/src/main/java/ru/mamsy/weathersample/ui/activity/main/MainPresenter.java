@@ -18,6 +18,7 @@ import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.utils.rx.AppSchedulers;
 import ru.mamsy.weathersample.data.api.model.WeatherDataModel;
 import ru.mamsy.weathersample.mvp.BasePresenter;
+import ru.mamsy.weathersample.ui.activity.main.interactor.WeatherLoaderInteractor;
 
 /**
  * @author Maxim Berezin.
@@ -59,6 +60,7 @@ public class MainPresenter extends BasePresenter<MainView> {
      * Грузит прогноз погоды для списка ИД.
      */
     public void requestWeatherData() {
+        weatherDisposable.dispose();
         weatherDisposable = cityRepository
                 .getCiies()
                 .flatMapSingle(entities -> {
@@ -84,4 +86,9 @@ public class MainPresenter extends BasePresenter<MainView> {
         }
     }
 
+    @Override
+    public void onPresenterDestroy() {
+        super.onPresenterDestroy();
+        weatherDisposable.dispose();
+    }
 }

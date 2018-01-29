@@ -20,6 +20,14 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 tools:text="Заголовок"/>
+
+            <ImageButton
+                android:id="@+id/addButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_gravity="end|center"
+                android:background="@android:drawable/ic_menu_add" />
         </FrameLayout>
 
     </android.support.v7.widget.Toolbar>

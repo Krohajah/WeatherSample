@@ -8,4 +8,11 @@
     <string name="main_activity_press_title">Давление</string>
     <string name="main_activity_hum_title">Влажность</string>
 
+    <!--AddCityActivity-->
+    <string name="add_city_activity_title">Добавление города</string>
+    <string name="add_city_activity_hint">Введите название города</string>
+    <string name="add_city_activity_add">Добавить</string>
+    <string name="add_city_activity_error">Такого города нет.</string>
+
+
 </resources>

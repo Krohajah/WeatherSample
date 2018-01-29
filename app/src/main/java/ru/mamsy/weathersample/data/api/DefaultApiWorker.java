@@ -6,9 +6,11 @@ import io.reactivex.Observable;
 import retrofit2.Retrofit;
 import ru.mamsy.api.Api;
 import ru.mamsy.api.ApiErrorConverter;
+import ru.mamsy.localdb.CityEntity;
 import ru.mamsy.logger.Logger;
 import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.weathersample.data.api.datamapper.ApiErrorMapper;
+import ru.mamsy.weathersample.data.api.datamapper.CityMapper;
 import ru.mamsy.weathersample.data.api.datamapper.WeatherDataMapper;
 import ru.mamsy.weathersample.data.api.model.WeatherDataModel;
 
@@ -43,6 +45,14 @@ public class DefaultApiWorker implements ApiWorker {
                 .getForecast(id)
                 .map(retrofitResponse -> convert(retrofitResponse,
                         entity -> new WeatherDataMapper().toModel(entity)));
+    }
+
+    @Override
+    public Observable<Response<CityEntity>> getCity(String query) {
+        return api
+                .getCity(query)
+                .map(retrofitResponse -> convert(retrofitResponse,
+                        entity -> new CityMapper().toModel(entity)));
     }
 
     /**

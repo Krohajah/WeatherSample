@@ -1,4 +1,4 @@
-package ru.mamsy.weathersample.ui.activity.main;
+package ru.mamsy.weathersample.ui.activity.main.interactor;
 
 
 import java.util.List;
