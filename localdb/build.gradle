@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    // Local jars
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Android
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    // JUnit
+    testImplementation "junit:junit:$rootProject.jUnitVersion"
+    // Espresso
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //RxJava & RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    //  Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.archLibraryVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.archLibraryVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.archLibraryVersion"
+    //  LiveData
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLibraryVersion"
+    compile project(path: ':utils')
+}

@@ -11,6 +11,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.plugins.RxJavaPlugins;
+import ru.mamsy.localdb.CityEntity;
+import ru.mamsy.localdb.CityRepository;
 import ru.mamsy.logger.Logger;
 import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.utils.rx.AppSchedulers;
@@ -27,6 +29,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     //region DI
     private final Context context;
     private final WeatherLoaderInteractor weatherLoaderInteractor;
+    private final CityRepository cityRepository;
     //endregion
     // Common fields start
     private boolean initialized = false;
@@ -35,9 +38,10 @@ public class MainPresenter extends BasePresenter<MainView> {
     private List<WeatherDataModel> weatherDataModels;
 
     @Inject
-    public MainPresenter(Context context, WeatherLoaderInteractor weatherLoaderInteractor) {
+    public MainPresenter(Context context, WeatherLoaderInteractor weatherLoaderInteractor, CityRepository cityRepository) {
         this.context = context;
         this.weatherLoaderInteractor = weatherLoaderInteractor;
+        this.cityRepository = cityRepository;
     }
 
     void initialize() {
@@ -55,12 +59,16 @@ public class MainPresenter extends BasePresenter<MainView> {
      * Грузит прогноз погоды для списка ИД.
      */
     public void requestWeatherData() {
-        java.util.List<Integer> list = new ArrayList<>();
-        list.add(707860);
-        list.add(519188);
-        list.add(1283378);
-        weatherDisposable = weatherLoaderInteractor
-                .loadForIds(list)
+        weatherDisposable = cityRepository
+                .getCiies()
+                .flatMapSingle(entities -> {
+                    List<Integer> ids = new ArrayList<>();
+                    for (CityEntity cityEntity : entities) {
+                        ids.add(cityEntity.getId());
+                    }
+                    return weatherLoaderInteractor.loadForIds(ids);
+                })
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(AppSchedulers.network())
                 .subscribe(this::onInteractorComplete,
