@@ -3,4 +3,9 @@
 
     <!--MainActivity-->
     <string name="main_activity_title">Погода</string>
+    <string name="main_activity_date_title">Дата</string>
+    <string name="main_activity_temp_title">Температура</string>
+    <string name="main_activity_press_title">Давление</string>
+    <string name="main_activity_hum_title">Влажность</string>
+
 </resources>

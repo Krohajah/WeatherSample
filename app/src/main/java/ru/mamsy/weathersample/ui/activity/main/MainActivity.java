@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Button;
+import android.support.v4.view.ViewPager;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -12,18 +14,18 @@ import ru.mamsy.logger.Logger;
 import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.weathersample.R;
 import ru.mamsy.weathersample.data.api.ApiWorker;
-import ru.mamsy.weathersample.data.api.result.InteractorResult;
-import ru.mamsy.weathersample.data.api.result.ResultStatus;
+import ru.mamsy.weathersample.data.api.model.WeatherDataModel;
 import ru.mamsy.weathersample.mvp.BaseMVPActivity;
 import ru.mamsy.weathersample.ui.activity.base.ActivityModule;
 import ru.mamsy.weathersample.ui.activity.base.ToolbarDelegate;
+import ru.mamsy.weathersample.ui.adapter.pageradapter.CitiesWeatherPagerAdapter;
 
 /**
  * Sample.
  *
  * @author Maxim Berezin.
  */
-public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
+public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> implements MainView {
 
     Logger logger = LoggerFactory.getLogger("givemeweather");
     //region di
@@ -33,6 +35,12 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
     //endregion
     @Inject
     ApiWorker apiWorker;
+    // region Views
+    private ViewPager viewPager;
+    //endregion
+    //region Other
+    CitiesWeatherPagerAdapter citiesWeatherPagerAdapter;
+    //endregion
 
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, MainActivity.class);
@@ -46,9 +54,9 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
         setContentView(R.layout.activity_main);
         toolbarDelegate.init();
         toolbarDelegate.setTitle(getString(R.string.main_activity_title));
-        Button button = findViewById(R.id.button);
 
-        button.setOnClickListener(view -> presenter.requestWeatherData());
+        viewPager = findViewById(R.id.viewPager);
+        presenter.initialize();
 
     }
 
@@ -58,15 +66,9 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
         return presenter;
     }
 
-    public static class Result extends InteractorResult {
-
-        Result() {
-            super(ResultStatus.OK);
-        }
-
-        Result(ResultStatus status) {
-            super(status);
-        }
-
+    @Override
+    public void setupPagerAdapter(List<WeatherDataModel> weatherDataModels) {
+        citiesWeatherPagerAdapter = new CitiesWeatherPagerAdapter(getSupportFragmentManager(), weatherDataModels);
+        viewPager.setAdapter(citiesWeatherPagerAdapter);
     }
 }

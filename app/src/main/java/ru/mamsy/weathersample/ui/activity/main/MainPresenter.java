@@ -52,7 +52,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     private void onInitialize() {
-
+        requestWeatherData();
     }
 
     /**
@@ -78,15 +78,9 @@ public class MainPresenter extends BasePresenter<MainView> {
     private void onInteractorComplete(WeatherLoaderInteractor.Result result) {
         if (result.isOk()) {
             weatherDataModels = result.getWeatherDataModels();
-            logger.trace("weatherDataModels.size() = " + weatherDataModels.size());
-//            balanceModel = result.getBalanceModel();
-//            if (balanceModel != null) {
-//                getView().setDriverBalance(balanceModel.getBalance());
-//            } else {
-//                getView().setDriverBalance("");
-//            }
-//        } else {
-//            getView().showErrorMsg(context, result.getStatus());
+            if (weatherDataModels != null) {
+                getView().setupPagerAdapter(weatherDataModels);
+            }
         }
     }
 
