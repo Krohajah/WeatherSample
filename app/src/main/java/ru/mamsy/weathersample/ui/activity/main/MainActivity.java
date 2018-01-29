@@ -8,15 +8,10 @@ import android.widget.Button;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
 import ru.mamsy.logger.Logger;
 import ru.mamsy.logger.LoggerFactory;
 import ru.mamsy.weathersample.R;
 import ru.mamsy.weathersample.data.api.ApiWorker;
-import ru.mamsy.weathersample.data.api.ResponseChecker;
-import ru.mamsy.weathersample.data.api.model.ForecastsModel;
 import ru.mamsy.weathersample.data.api.result.InteractorResult;
 import ru.mamsy.weathersample.data.api.result.ResultStatus;
 import ru.mamsy.weathersample.mvp.BaseMVPActivity;
@@ -53,24 +48,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> {
         toolbarDelegate.setTitle(getString(R.string.main_activity_title));
         Button button = findViewById(R.id.button);
 
-        button.setOnClickListener(view -> apiWorker
-                .getForecast("London, uk")
-                .flatMap(ResponseChecker::checkResponse)
-                .doOnNext(cityWeatherModel -> {
-                    for (ForecastsModel forecastsModel : cityWeatherModel.getForecastsModelList()) {
-                        logger.info(forecastsModel.getForecastDate());
-                    }
-                })
-                .map(r -> new Result())
-                .onErrorReturn(throwable -> new Result(ResultStatus.CONNECTION_ERROR))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(result -> {
-                    if (result.isOk()) {
-                        logger.info("ok");
-                    }
-                }, throwable ->
-                        RxJavaPlugins.getErrorHandler().accept(throwable)));
+        button.setOnClickListener(view -> presenter.requestWeatherData());
 
     }
 

@@ -31,14 +31,18 @@ public class DefaultApiWorker implements ApiWorker {
 
     @Override
     public Observable<Response<WeatherDataModel>> getForecast(String query) {
-        Observable<Response<WeatherDataModel>> observable = api
+        return api
                 .getForecast(query)
-                .map(retrofitResponse -> {
-                    logger.info(retrofitResponse.message());
-                   return convert(retrofitResponse,
-                            entity -> new WeatherDataMapper().toModel(entity));
-                });
-        return observable;
+                .map(retrofitResponse -> convert(retrofitResponse,
+                        entity -> new WeatherDataMapper().toModel(entity)));
+    }
+
+    @Override
+    public Observable<Response<WeatherDataModel>> getForecast(int id) {
+        return api
+                .getForecast(id)
+                .map(retrofitResponse -> convert(retrofitResponse,
+                        entity -> new WeatherDataMapper().toModel(entity)));
     }
 
     /**

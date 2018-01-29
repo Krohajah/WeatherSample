@@ -24,4 +24,15 @@ public interface Api {
     Observable<Response<WeatherData>> getForecast(
             @NonNull @Query("q") String query
     );
+
+    /**
+     * Прогноз на 5 дней.
+     *
+     * @param id id города
+     * @return прогноз на 5 дней.
+     */
+    @GET("forecast?units=metric&lang=ru")
+    Observable<Response<WeatherData>> getForecast(
+            @NonNull @Query("id") int id
+    );
 }

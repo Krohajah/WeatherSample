@@ -19,4 +19,14 @@ public interface ApiWorker {
     Observable<Response<WeatherDataModel>> getForecast(
             String query
     );
+
+    /**
+     * Прогноз на 5 дней.
+     *
+     * @param id id города
+     * @return прогноз на 5 дней.
+     */
+    Observable<Response<WeatherDataModel>> getForecast(
+            int id
+    );
 }
