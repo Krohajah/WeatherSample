@@ -51,9 +51,10 @@ public class AddCityActivity extends BaseMVPActivity<AddCityView, AddCityPresent
         setContentView(R.layout.activity_add_city);
 
         addCity = findViewById(R.id.addCity);
+        addCity.setOnEditorActionListener(enterClickListener);
         errorMsg = findViewById(R.id.errorMsg);
         btn = findViewById(R.id.btn);
-        btn.setOnClickListener(signBtnClickListener);
+        btn.setOnClickListener(addBtnClickListener);
         loadingView = findViewById(R.id.loadingView);
 
         presenter.initialize();
@@ -106,7 +107,7 @@ public class AddCityActivity extends BaseMVPActivity<AddCityView, AddCityPresent
     /**
      * Слушатель нажатия кнопки добавить.
      */
-    private View.OnClickListener signBtnClickListener = new View.OnClickListener() {
+    private View.OnClickListener addBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 

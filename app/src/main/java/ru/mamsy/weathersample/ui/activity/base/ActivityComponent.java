@@ -15,6 +15,4 @@ public interface ActivityComponent {
 
     Activity activity();
 
-    ToolbarDelegate toolbarDelegate();
-
 }

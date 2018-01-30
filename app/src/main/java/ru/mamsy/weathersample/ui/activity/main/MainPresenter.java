@@ -49,6 +49,10 @@ public class MainPresenter extends BasePresenter<MainView> {
         if (!initialized) {
             initialized = true;
             onInitialize();
+        } else {
+            if (weatherDataModels != null) {
+                getView().setupPagerAdapter(weatherDataModels);
+            }
         }
     }
 
